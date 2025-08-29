@@ -8,25 +8,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header con video -->
     <header>
         <video autoplay muted loop playsinline class="video-fondo">
-            <source src="videos/video-header.mp4" type="video/mp4">
+            <source src="video-header.mp4" type="video/mp4">
             Tu navegador no soporta el video.
         </video>
+        <div class="overlay"></div>
+
         <h1>Coco K'nout</h1>
         <p>¡A por el KO!</p>
     </header>
+    
+    <section id="extras">
+    <div id="imagenScroll">
+        <img src="iker2.png" alt="Imagen oculta">
+    </div>
+</section>
 
-    <!-- Contenido principal -->
     <main>
-        <!-- Sección 1 -->
         <section>
             <h2>Acerca del juego</h2>
             <p>Aquí irá la descripción de Coco K’nout...</p>
         </section>
 
-        <!-- Sección 2 -->
         <section id="noticias">
             <h2>Noticias</h2>
             <p>Próximamente actualizaciones sobre el desarrollo.</p>
@@ -34,17 +38,20 @@
         </section>
     </main>
 
-    <!-- Modal de imagen -->
-    <div id="modalImagen">
-        <img src="imagenes/iker.jpg" alt="Imagen" />
-    </div>
-
-    <!-- Footer -->
     <footer>
         <p>&copy; 2025 Coco K’nout</p>
     </footer>
 
-    <!-- Script -->
+    <!-- Modal de imagen del botón -->
+    <div id="modalImagen">
+        <img src="iker.jpg" alt="Imagen" />
+    </div>
+
+    <!-- Imagen secreta al final del scroll -->
+    <div id="imagenScroll">
+        <img src="iker2.png" alt="Imagen secreta" />
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
