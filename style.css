@@ -1,0 +1,139 @@
+/* Body */
+body {
+    font-family: 'Fredoka One', cursive;
+    margin: 0;
+    padding: 0;
+    background-color: #000; /* Fondo negro para dar profundidad */
+    color: #fff;
+}
+
+/* Header con video */
+header {
+    position: relative;
+    height: 50vh; /* ocupa la mitad de la pantalla */
+    margin: 0; /* pegado arriba */
+    padding: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* centra el texto verticalmente */
+    align-items: center;
+    overflow: hidden;
+}
+
+header .video-fondo {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    height: 100%;
+    object-fit: contain;
+    background: black;
+    z-index: -2;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin: 0;
+    color: #fff;
+    text-shadow: 2px 2px 4px #000;
+    letter-spacing: 2px;
+    line-height: 1.2;
+    text-align: center;
+}
+
+header p {
+    font-size: 1em;
+    margin-top: 12px;
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+    letter-spacing: 1.5px;
+    line-height: 1.4;
+    text-align: center;
+}
+
+/* Animación de las secciones al hacer scroll */
+section {
+    transform: translateY(30px);
+    opacity: 0;
+    transition: all 0.5s ease-out;
+}
+
+section.visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Secciones */
+section {
+    margin: 20px;
+    padding: 20px;
+    background-color: rgba(20, 20, 20, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+
+section h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    color: #ffee00; /* amarillo retro */
+    text-shadow: 1px 1px #000;
+}
+
+/* Botón */
+button {
+    background-color: #222;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 10px 20px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+/* Modal de imagen */
+#modalImagen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    display: flex;          /* siempre flex para que funcione el fade */
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    opacity: 0;             /* invisible al inicio */
+    pointer-events: none;   /* no se puede clickar mientras invisible */
+    transition: opacity 0.3s ease; /* efecto suave */
+}
+
+#modalImagen.mostrar {
+    opacity: 1;             /* visible */
+    pointer-events: auto;   /* permite clicks */
+}
+
+#modalImagen img {
+    max-width: 80%;
+    max-height: 80%;
+    border: 3px solid #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #fff;
+}
+
+/* Footer */
+footer {
+    background-color: #111;
+    padding: 10px;
+    font-size: 0.9em;
+    text-align: center;
+}
