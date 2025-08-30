@@ -1,57 +1,91 @@
-// script.js
+// Secciones animadas  
+const secciones = document.querySelectorAll('section');  
 
-// Secciones animadas
-const secciones = document.querySelectorAll('section');
-const mostrarSeccion = () => {
-    const scrollY = window.scrollY + window.innerHeight;
-    secciones.forEach(sec => {
-        const top = sec.offsetTop;
-        if(scrollY > top + 50){
-            sec.classList.add('visible');
-        }
-    });
-};
-window.addEventListener('scroll', mostrarSeccion);
-window.addEventListener('load', mostrarSeccion);
+const mostrarSeccion = () => {  
+  const scrollY = window.scrollY + window.innerHeight;  
+  secciones.forEach(sec => {  
+    const top = sec.offsetTop;  
+    if (scrollY > top + 50) {  
+      sec.classList.add('visible');  
+    }  
+  });  
+};  
 
-// Modal de imagen del botón
-const botonImagen = document.getElementById('mostrarImagen');
-const modalImagen = document.getElementById('modalImagen');
-botonImagen.addEventListener('click', () => {
-    modalImagen.classList.add('mostrar');
-});
-modalImagen.addEventListener('click', () => {
-    modalImagen.classList.remove('mostrar');
-});
+window.addEventListener('scroll', mostrarSeccion);  
+window.addEventListener('load', mostrarSeccion);  
 
-const imagenScroll = document.getElementById('imagenScroll');
+// Modal de imagen del botón  
+const botonImagen = document.getElementById('mostrarImagen');  
+const modalImagen = document.getElementById('modalImagen');  
 
-let isTouching = false;
-let startY = 0;
-let currentY = 0;
+botonImagen.addEventListener('click', () => {  
+  modalImagen.classList.add('mostrar');  
+});  
 
-window.addEventListener('touchstart', (e) => {
-    startY = e.touches[0].clientY;
-    isTouching = true;
-});
+modalImagen.addEventListener('click', () => {  
+  modalImagen.classList.remove('mostrar');  
+});  
 
-window.addEventListener('touchmove', (e) => {
-    if(!isTouching) return;
-    currentY = e.touches[0].clientY;
-    
-    const scrollY = window.scrollY + window.innerHeight;
-    const docHeight = document.body.offsetHeight;
-    const delta = startY - currentY;
+// Imagen secreta al final del scroll  
+let imagenSubida = false;  
+let primeraVez = true;  
+let lastScrollY = window.scrollY;  
+let forzadoPorScrollUp = false; // <-- flag para controlar si fue forzado
 
-    if(scrollY >= docHeight - 1 && delta < 0){ // desliz hacia arriba en el final
-        const rebote = Math.min(Math.abs(delta)/2, 50); // máximo 50px
-        imagenScroll.style.transform = `translateY(${rebote}px)`;
-        imagenScroll.style.opacity = 1;
-    }
-});
+const imagenScroll = document.getElementById('imagenScroll');  
 
-window.addEventListener('touchend', () => {
-    isTouching = false;
-    // vuelve al sitio original suavemente
-    imagenScroll.style.transform = `translateY(0)`;
+function mostrarImagenScroll() {  
+  if (forzadoPorScrollUp) return; // si fue forzado, no lo tocamos  
+
+  const scrollY = window.scrollY + window.innerHeight;  
+  const docHeight = document.documentElement.scrollHeight;  
+
+  if (scrollY >= docHeight - 2) {    
+      imagenScroll.classList.add("visible");    
+      if (primeraVez) {    
+        imagenScroll.style.transition = 'transform 1s ease, opacity 1s ease';    
+        imagenScroll.style.transform = 'translateX(0px) translateY(50px)';    
+      } else {    
+        imagenScroll.style.transition = 'transform 0.2s ease, opacity 0.2s ease';    
+        imagenScroll.style.transform = 'translateX(0px) translateY(100px)';    
+      }    
+  } else {    
+      imagenScroll.classList.remove("visible");    
+  }  
+}  
+
+// Scroll hacia arriba  
+window.addEventListener('scroll', () => {  
+  const scrollY = window.scrollY;  
+
+  if (scrollY < lastScrollY) {    
+      // Siempre baja lento (1s) cuando subes  
+      imagenScroll.style.transition = 'transform 1s ease';    
+      imagenScroll.style.transform = 'translateX(0px) translateY(150px)';    
+      imagenSubida = false;    
+      forzadoPorScrollUp = true;  
+  } else {  
+      forzadoPorScrollUp = false;  
+  }  
+
+  lastScrollY = scrollY;  
+});  
+
+window.addEventListener('scroll', mostrarImagenScroll);  
+window.addEventListener('load', mostrarImagenScroll);  
+
+// Toggle al click  
+imagenScroll.addEventListener('click', () => {  
+  if (imagenSubida) {  
+    // Baja rápido  
+    imagenScroll.style.transition = 'transform 0.2s ease';  
+    imagenScroll.style.transform = 'translateX(0px) translateY(100px)';  
+    imagenSubida = false;  
+    primeraVez = false;  
+  } else {  
+    // Sube lento  
+    imagenScroll.style.transition = 'transform 1s ease';  
+    imagenScroll.style.transform = 'translateX(0px) translateY(5px)';  
+    imagenSubida = true;  
+  }  
 });
